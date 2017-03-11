@@ -1,0 +1,10 @@
+### WINDOWS
+Thumbs.db
+*.exe
+
+### LINUX
+.*
+!.gitignore
+*~
+
+
