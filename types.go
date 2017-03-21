@@ -1,12 +1,17 @@
 package main
 
 import "fmt"
+import "time"
 
 type User struct {
 	name    string
 	email   string
 	ext     int
 	enabled bool
+}
+
+func (u *User) setName(name string) {
+	u.name = name
 }
 
 type notExported struct { //this struct is visible only in this package as it starts with small letter
@@ -26,11 +31,24 @@ type Rectangle struct {
 	name          string
 }
 
-func (u *User) setName(name string) {
-	u.name = name
+func (r Rectangle) Area_by_value() int {
+    return r.length * r.width
 }
 
+type myTime struct{
+	time.Time // anonymous field
+}
+
+func (t myTime) getTime() string {
+	return t.Time.String()
+}
+
+
+
+
+
 func initRectangle() {
+
 	r1 := Rectangle{2, 1, "my_r1"} // initialize values in order they are defined in struct
 	fmt.Println("Rectangle r1 is: ", r1)
 
@@ -45,6 +63,8 @@ func initRectangle() {
 	fmt.Println("Rectangle pr as address is: ", &pr)
 	fmt.Println("Rectangle pr as value is: ", pr)  // Go performs default printing of structs
 	fmt.Println("Rectangle pr as value is: ", *pr) // address and value are differentiated with an & symbol
+
+	fmt.Println("Rectangle area is: ", r2.Area_by_value())
 }
 
 func init() {
