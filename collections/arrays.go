@@ -8,17 +8,27 @@ func init() {
 }
 
 func main() {
-	var array [5] int
+	initializers()
+	arrays()
+}
+
+func initializers() {
+	var notUsedArr [5]int
+	_ = notUsedArr // avoid the 'declared and not used' warning
+	
+	iniArrWithSize := [2]string{"first","secound"}
+	iniArrWithoutSize := [...]string{"fisrt","secound"}
+
+	Use(iniArrWithSize,iniArrWithoutSize)
 }
 
 func arrays() {
-
-	var john User
-	bill := new(User)
-	bill.name = "BILL"
-	fmt.Println(john.enabled)
-	fmt.Println(bill.name)
-
 	var initArray = []string{"2", "3"}
 	fmt.Println(initArray)
+}
+
+func Use(vals ...interface{}) {
+    for _, val := range vals {
+        _ = val
+    }
 }

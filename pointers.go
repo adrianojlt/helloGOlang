@@ -34,6 +34,23 @@ func addresses() {
 	fmt.Println("value at address ", ptr, " is: ", *ptr) // value at the address
 }
 
+func passByValue(x int) {
+	x = 0;
+}
+
+func passByReference(x *int) {
+	*x = 0; // set value through the pointer
+}
+
+func testArgs() {
+	x := 5
+	passByValue(x)
+	fmt.Println(x)
+	passByReference(&x)
+	fmt.Println(x)
+}
+
 func main() {
 	addresses()
+	testArgs()
 }

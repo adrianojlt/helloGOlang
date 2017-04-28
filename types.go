@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
-import "time"
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+	"io"
+	"log"
+	"os"
+	"time"
+)
 
 type User struct {
 	name    string
@@ -32,10 +39,10 @@ type Rectangle struct {
 }
 
 func (r Rectangle) Area_by_value() int {
-    return r.length * r.width
+	return r.length * r.width
 }
 
-type myTime struct{
+type myTime struct {
 	time.Time // anonymous field
 }
 
@@ -43,9 +50,45 @@ func (t myTime) getTime() string {
 	return t.Time.String()
 }
 
+type Lang struct {
+	Name string
+	Year int
+	URL  string
+}
 
+func printLang() {
+	lang := Lang{"Go", 2009, "http://golang.org/"}
+	fmt.Printf("%v\n", lang)
+	fmt.Printf("%+v\n", lang)
+	fmt.Printf("%#v\n", lang)
+	data, _ := json.Marshal(lang)
+	fmt.Printf("%s\n", data)
+	data, _ = xml.MarshalIndent(lang, "", " ")
+	fmt.Printf("%s\n", data)
+}
 
+func cat() {
+	input, _ := os.Open("lang.json")
+	io.Copy(os.Stdout, input)
+}
 
+func toStruct(f func(Lang)) {
+	input, _ := os.Open("lang.json")
+	io.Copy(os.Stdout, input)
+	dec := json.NewDecoder(input)
+	for {
+		var lang Lang
+		err := dec.Decode(&lang)
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			log.Fatal(err)
+		}
+		//fmt.Printf("%v\n", lang)
+		f(lang)
+	}
+}
 
 func initRectangle() {
 
@@ -72,8 +115,13 @@ func init() {
 }
 
 func main() {
-	arrays()
-	initRectangle()
+	//arrays()
+	//initRectangle()
+	//printLang()
+	//cat()
+	toStruct(func(lang Lang) {
+		fmt.Printf("%v\n", lang)
+	})
 }
 
 func arrays() {
