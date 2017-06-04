@@ -37,7 +37,32 @@ func rectProps(length, width float64) (area, perimeter float64) {
 	return //no explicit return value
 }
 
+// a function like this together with a nonlocal variable it
+// references is known as a closure
+func closureExample01() {
+	x := 0
+
+	increment := func() int {
+		x++
+		return x
+	}
+
+	fmt.Println(increment())
+	fmt.Println(increment())
+}
+func closureExample02() {
+	makeEvenGenerator := func() uint {
+
+	}
+}
+
 func main() {
+	//test()
+	//closureExample01()
+	closureExample02()
+}
+
+func test() {
 	_, exists := power("cenadas")
 
 	if exists {
@@ -46,5 +71,4 @@ func main() {
 	func() {
 		fmt.Println("anonymous function")
 	}()
-
 }
