@@ -17,6 +17,7 @@ type User struct {
 	enabled bool
 }
 
+// method with pointer RECEIVER
 func (u *User) setName(name string) {
 	u.name = name
 }

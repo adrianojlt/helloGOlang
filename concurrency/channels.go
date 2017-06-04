@@ -61,6 +61,7 @@ func startPingPong() {
 
 func usingSelect() {
 
+	// create two unbuffered channels
 	c1 := make(chan string)
 	c2 := make(chan string)
 
